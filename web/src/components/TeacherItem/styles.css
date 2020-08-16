@@ -77,6 +77,10 @@
   background: var(--color-secundary-dark);
 }
 
+.teacher-item footer a {
+  text-decoration: none;
+}
+
 @media (min-width: 700px) {
   .teacher-item header,
   .teacher-item footer {
