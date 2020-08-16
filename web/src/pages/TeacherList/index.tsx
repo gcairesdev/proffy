@@ -91,6 +91,7 @@ const TeacherList = () => {
         {teachers.map((teacher: Teacher) => (
           <TeacherItem
             key={teacher.id}
+            id={teacher.id}
             name={teacher.name}
             image={teacher.avatar}
             bio={teacher.bio}
