@@ -1,14 +1,24 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "Proffy",
+    "slug": "Proffy",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#8257E5"
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#0000000",
+      "translucent": true,
+      "hidden": true
+    },
+    "androidNavigationBar": {
+      "barStyle": "dark-content",
+      "visible": "leanback"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
