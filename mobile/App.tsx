@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import { Archivo_400Regular, Archivo_700Bold, useFonts } from '@expo-google-fonts/archivo';
 
-import Routes from './src/routes';
+import AppStack from './src/routes/AppStack';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -19,7 +19,7 @@ export default function App() {
 	} else {
     return (
       <>
-        <Routes />
+        <AppStack />
         <StatusBar style='light' />
       </>
     );

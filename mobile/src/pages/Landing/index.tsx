@@ -2,7 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { 
+import {
 	Container,
 	LandingImg,
 	Title,
@@ -19,7 +19,11 @@ import heartImg from '../../assets/images/icons/heart.png';
 import giveClassesImg from '../../assets/images/icons/give-classes.png';
 
 const Landing = () => {
-	const navigation = useNavigation();
+  const navigation = useNavigation();
+
+  const handleNavigateToGiveClasses = () => navigation.navigate('GiveClasses');
+
+  const handleNavigateToStudyPages = () => navigation.navigate('Study');
 
 	return (
 		<Container>
@@ -32,7 +36,7 @@ const Landing = () => {
 
 			<ButtonsContainer>
 				<Button
-					onPress={() => navigation.navigate('GiveClasses')}
+					onPress={handleNavigateToGiveClasses}
 					style={{backgroundColor: '#9871F5'}}
 				>
 					<Image source={giveClassesImg} />
@@ -41,7 +45,7 @@ const Landing = () => {
 				</Button>
 
 				<Button
-					onPress={() => navigation.navigate('Study')}
+					onPress={handleNavigateToStudyPages}
 					style={{backgroundColor: '#04D361'}}
 				>
 					<Image source={studyImg} />
