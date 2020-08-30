@@ -8,8 +8,8 @@ export const Container = styled.View`
 
 export const Label = styled.Text`
   font-size: 18px;
-  color: #9C84A6;
   font-family: 'Poppins_400Regular';
+  color: ${props => props.light ? "#FFF" : "#9C84A6"};
 `;
 
 export const InputContainer = styled.View`

@@ -1,5 +1,6 @@
 import React, { ReactText } from 'react';
 import { Picker } from '@react-native-community/picker';
+import { PickerProps } from '@react-native-community/picker/typings/Picker';
 
 import {
   Container,
@@ -8,32 +9,24 @@ import {
   SelectInput,
 } from './styles';
 
-interface SelectProps {
+interface SelectProps extends PickerProps {
   items: {
     label: string;
     value: string;
   }[];
   label?: string;
-  selectedValue?: string | null;
-  onValueChange?(itemValue: ReactText, itemIndex: number): void; 
+  light?: boolean;
 }
 
-const Select: React.FC<SelectProps> = ({ 
-  label,
-  items,
-  selectedValue,
-  onValueChange 
-}) => {
+const Select: React.FC<SelectProps> = ({ label, items, light, ...rest }) => {
   return (
     <Container>
-      <Label>{label}</Label>
+      <Label light={light}>{label}</Label>
+
       <InputContainer>
-        <SelectInput
-          mode='dropdown'
-          selectedValue={selectedValue}
-          onValueChange={onValueChange}
-        >
+        <SelectInput {...rest} >
           <Picker.Item label='Selecione uma opção' value='' />
+
           {items.map(item => (
             <Picker.Item key={item.value} label={item.label} value={item.value}/>
           ))}

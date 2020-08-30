@@ -1,18 +1,22 @@
 import React from 'react';
+import { TextInputProps } from 'react-native';
 
-import { Container, Label, InputText } from './styles';
+import {
+  Container,
+  Label,
+  InputText
+} from './styles';
 
-interface InputProps {
+interface InputProps extends TextInputProps {
   label?: string;
-  value?: string;
-  onChangeText?: ((text: string) => void) | undefined;
+  light?: boolean;
 }
 
-const Input:React.FC<InputProps> = ({ label, value, onChangeText }) => {
+const Input:React.FC<InputProps> = ({ label, light, ...rest }) => {
   return (
     <Container>
-      <Label>{label}</Label>
-      <InputText value={value} onChangeText={onChangeText} />
+      <Label light={light}>{label}</Label>
+      <InputText {...rest} />
     </Container>
   );
 };

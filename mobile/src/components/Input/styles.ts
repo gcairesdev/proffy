@@ -6,7 +6,7 @@ export const Container = styled.View`
 `;
 
 export const Label = styled.Text`
-  color: #9C84A6;
+  color: ${props => props.light ? "#FFF" : "#9C84A6"};
   font-size: 18px;
   font-family: 'Poppins_400Regular';
 `;
