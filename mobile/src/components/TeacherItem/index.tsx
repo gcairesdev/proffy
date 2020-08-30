@@ -24,7 +24,7 @@ import whatsappIcon from '../../assets/images/icons/whatsapp.png';
 import unfavoriteIcon from '../../assets/images/icons/unfavorite.png';
 import heartOutlineIcon from '../../assets/images/icons/heart-outline.png';
 
-interface Teacher {
+export interface Teacher {
   id: number;
   name: string;
   avatar: string;
@@ -42,23 +42,20 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   return(
     <Container>
       <Profile>
-        <Avatar source={{ uri: 'https://github.com/gcairesdev.png'}} />
+        <Avatar source={{ uri: teacher.avatar }} />
 
         <ProfileInfo>
-          <Name>Guilherme Caires</Name>
-          <Subject>Matemática</Subject>
+          <Name>{teacher.name}</Name>
+          <Subject>{teacher.subject}</Subject>
         </ProfileInfo>
       </Profile>
 
-      <Bio>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit impedit earum magnam! Optio quia et libero
-        nulla ea adipisci molestias veritatis laudantium incidunt, neque ex itaque iste id explicabo modi!
-      </Bio>
+      <Bio>{teacher.bio}</Bio>
 
       <Footer>
         <Price>
           Preço/hora {'  '}
-          <PriceValue>R$ 20,00</PriceValue>
+          <PriceValue>R$ {teacher.cost}</PriceValue>
         </Price>
 
         <ButtonsContainer>

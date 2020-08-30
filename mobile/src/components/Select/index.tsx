@@ -12,7 +12,7 @@ import {
 interface SelectProps extends PickerProps {
   items: {
     label: string;
-    value: string;
+    value: ReactText;
   }[];
   label?: string;
   light?: boolean;

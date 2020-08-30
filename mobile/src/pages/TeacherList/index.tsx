@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 
+import api from '../../services/api';
+
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import Header from '../../components/Header';
-import TeacherItem from '../../components/TeacherItem';
+import TeacherItem, { Teacher } from '../../components/TeacherItem';
 
 import {
   Container,
@@ -18,10 +20,29 @@ import {
  } from './styles';
 
 const TeacherList: React.FC = () => {
+  const [teachers, setTeachers] = useState([]);
+
+  const [week_day, setWeekDay] = useState(0);
+  const [subject, setSubject] = useState('');
+  const [time, setTime] = useState('');
+
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
 
   const handleToggleFiltersVisible = () => {
     setIsFiltersVisible(!isFiltersVisible);
+  }
+
+  const handleSubmitFilters = async () => {
+    const { data } = await api.get('classes', {
+      params: {
+        week_day,
+        subject,
+        time,
+      }
+    });
+
+    setIsFiltersVisible(false);
+    setTeachers(data);
   }
 
   return(
@@ -38,19 +59,8 @@ const TeacherList: React.FC = () => {
           <SearchForm>
             <Select
               light
-              label='Dia da semana'
-              items={[
-                {label: 'Domingo', value: '0'},
-                {label: 'Segunda-feira', value: '1'},
-                {label: 'Terça-feira', value: '2'},
-                {label: 'Quarta-feira', value: '3'},
-                {label: 'Quinta-feira', value: '4'},
-                {label: 'Sexta-feira', value: '5'},
-                {label: 'Sábado', value: '6'},
-              ]}
-            />
-            <Select
-              light
+              selectedValue={subject}
+              onValueChange={itemValue => setSubject(String(itemValue))}
               label='Matéria'
               items={[
                 {label: 'Matemática', value: '0'},
@@ -68,25 +78,36 @@ const TeacherList: React.FC = () => {
             />
             <InputGroup>
               <InputBlock>
-                <Input
+                <Select
                   light
-                  label='Das'
-                  placeholder='9:00'
-                  placeholderTextColor='#C1BCCC'
+                  selectedValue={week_day}
+                  onValueChange={itemValue => setWeekDay(Number(itemValue))}
+                  label='Dia da semana'
+                  items={[
+                    {label: 'Domingo', value: 0},
+                    {label: 'Segunda-feira', value: 1},
+                    {label: 'Terça-feira', value: 2},
+                    {label: 'Quarta-feira', value: 3},
+                    {label: 'Quinta-feira', value: 4},
+                    {label: 'Sexta-feira', value: 5},
+                    {label: 'Sábado', value: 6},
+                  ]}
                 />
               </InputBlock>
 
               <InputBlock>
-              <Input
+                <Input
                   light
-                  label='Até'
-                  placeholder='13:00'
+                  label='Horário'
+                  value={time}
+                  placeholder='9:00'
                   placeholderTextColor='#C1BCCC'
+                  onChangeText={text => setTime(text)}
                 />
               </InputBlock>
             </InputGroup>
 
-            <SubmitButton>
+            <SubmitButton onPress={handleSubmitFilters}>
               <SubmitButtonText>Filtrar</SubmitButtonText>
             </SubmitButton>
           </SearchForm>
@@ -99,11 +120,9 @@ const TeacherList: React.FC = () => {
           paddingBottom: 16,
         }}
       >
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
+        {teachers.map((teacher: Teacher) => (
+          <TeacherItem key={teacher.id} teacher={teacher} />
+        ))}
       </ScrollTeacherList>
     </Container>
   );
