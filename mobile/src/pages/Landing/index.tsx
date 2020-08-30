@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import {
-	Container,
+  Container,
 	LandingImg,
 	Title,
 	TextBold,
@@ -13,17 +13,26 @@ import {
 	TotalConnections,
 } from './styles';
 
+import api from '../../services/api';
+
 import landingImg from '../../assets/images/landing.png';
 import studyImg from '../../assets/images/icons/study.png';
 import heartImg from '../../assets/images/icons/heart.png';
 import giveClassesImg from '../../assets/images/icons/give-classes.png';
 
 const Landing = () => {
-  const navigation = useNavigation();
+  const [totalConnections, setTotalConnections] = useState(0);
+
+  useEffect(() => {
+    api.get('connections')
+      .then(res => setTotalConnections(res.data.total));
+  }, []);
 
   const handleNavigateToGiveClasses = () => navigation.navigate('GiveClasses');
 
   const handleNavigateToStudyPages = () => navigation.navigate('Study');
+
+  const navigation = useNavigation();
 
 	return (
 		<Container>
@@ -54,7 +63,8 @@ const Landing = () => {
 				</Button>
 			</ButtonsContainer>
 
-			<TotalConnections>Total de 285 conexões já realizadas {' '}
+			<TotalConnections>
+        Total de {totalConnections} conexões já realizadas {' '}
 				<Image source={heartImg} />
 			</TotalConnections>
 		</Container>
