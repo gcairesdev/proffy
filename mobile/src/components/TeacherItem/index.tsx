@@ -1,4 +1,5 @@
 import React from 'react';
+import { Linking } from 'react-native';
 
 import {
   Container,
@@ -39,6 +40,12 @@ interface TeacherItemProps {
 }
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  const handleLinkToWhatsApp = () => {
+    const whatsppLink = `whatsapp://send?&phone=+55${teacher.whatsapp}`;
+
+    Linking.openURL(whatsppLink);
+  }
+
   return(
     <Container>
       <Profile>
@@ -63,7 +70,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
             <HeartOutlineIcon source={heartOutlineIcon} />
           </FavoriteButton>
 
-          <ContactButton>
+          <ContactButton onPress={handleLinkToWhatsApp} >
             <HeartOutlineIcon source={whatsappIcon} />
             <ContactButtonText>
               Entrar em contato
