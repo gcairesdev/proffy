@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '../../services/api';
@@ -62,6 +63,8 @@ const TeacherList: React.FC = () => {
     setIsFiltersVisible(false);
     setTeachers(data);
   }
+
+  useFocusEffect(() => loadFavorites());
 
   return(
     <Container>
