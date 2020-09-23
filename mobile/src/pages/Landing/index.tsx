@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import {
   Container,
@@ -23,10 +23,10 @@ import giveClassesImg from '../../assets/images/icons/give-classes.png';
 const Landing = () => {
   const [totalConnections, setTotalConnections] = useState(0);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     api.get('connections')
       .then(res => setTotalConnections(res.data.total));
-  }, []);
+  });
 
   const handleNavigateToGiveClasses = () => navigation.navigate('GiveClasses');
 

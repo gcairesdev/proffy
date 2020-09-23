@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Linking } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import api from '../../services/api';
+
 import {
   Container,
   Profile,
@@ -67,7 +69,15 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
     await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
   }
 
+  const addNewConnection = () => {
+    api.post('/connections', {
+      user_id: teacher.id
+    })
+  }
+
   const handleLinkToWhatsApp = () => {
+    addNewConnection();
+
     const whatsppLink = `whatsapp://send?&phone=+55${teacher.whatsapp}`;
 
     Linking.openURL(whatsppLink);
