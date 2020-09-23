@@ -51,7 +51,6 @@ export const Footer = styled.View`
   padding: 24px;
   margin-top: 24px;
   align-items: center;
-  background: #FAFAFC;
 `;
 
 export const Price = styled.Text`
@@ -77,8 +76,8 @@ export const FavoriteButton = styled(RectButton)`
   margin-right: 8px;
   border-radius: 8px;
   align-items: center;
-  background: #8257E5;
   justify-content: center;
+  background: ${props => props.favorited ? "#E33D3D" : "#8257E5"};
 `;
 
 export const ContactButton = styled(RectButton)`
@@ -88,7 +87,7 @@ export const ContactButton = styled(RectButton)`
   border-radius: 8px;
   align-items: center;
   flex-direction: row;
-  background: #08B361;
+  background: #04d361;
   justify-content: center;
 `;
 
@@ -99,7 +98,7 @@ export const ContactButtonText = styled.Text`
   font-family: 'Archivo_700Bold';
 `;
 
-export const HeartIcon = styled.Image``;
+export const UnFavoriteIcon = styled.Image``;
 
 export const WhatsAppIcon = styled.Image``;
 

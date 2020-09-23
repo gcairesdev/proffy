@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Linking } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   Container,
@@ -17,7 +18,7 @@ import {
   ContactButton,
   ContactButtonText,
   HeartOutlineIcon,
-  HeartIcon,
+  UnFavoriteIcon,
   WhatsAppIcon,
 } from './styles';
 
@@ -37,9 +38,35 @@ export interface Teacher {
 
 interface TeacherItemProps {
   teacher: Teacher;
+  favorited: boolean;
 }
 
-const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorited }) => {
+  const [isFavorited, setIsFavortited] = useState(favorited);
+
+  const handleToggleFavorite = async () => {
+    const favorites = await AsyncStorage.getItem('favorites');
+
+    let favoritesArray = [];
+
+    if (favorites) {
+      favoritesArray = JSON.parse(favorites);
+    }
+
+    if (isFavorited) {
+      const favoriteIndex = favoritesArray.findIndex((teacherItem: Teacher) => {
+        return teacherItem.id === teacher.id;
+      });
+
+      favoritesArray.splice(favoriteIndex, 1);
+    } else {
+      favoritesArray.push(teacher);
+    }
+
+    setIsFavortited(!isFavorited);
+    await AsyncStorage.setItem('favorites', JSON.stringify(favoritesArray));
+  }
+
   const handleLinkToWhatsApp = () => {
     const whatsppLink = `whatsapp://send?&phone=+55${teacher.whatsapp}`;
 
@@ -66,12 +93,19 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
         </Price>
 
         <ButtonsContainer>
-          <FavoriteButton>
-            <HeartOutlineIcon source={heartOutlineIcon} />
+          <FavoriteButton
+            onPress={handleToggleFavorite}
+            favorited={isFavorited}
+          >
+            {
+              isFavorited
+                ? <UnFavoriteIcon source={unfavoriteIcon} />
+                : <HeartOutlineIcon source={heartOutlineIcon} />
+            }
           </FavoriteButton>
 
           <ContactButton onPress={handleLinkToWhatsApp} >
-            <HeartOutlineIcon source={whatsappIcon} />
+            <WhatsAppIcon source={whatsappIcon} />
             <ContactButtonText>
               Entrar em contato
             </ContactButtonText>
